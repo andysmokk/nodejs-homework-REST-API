@@ -1,10 +1,8 @@
 const fs = require("fs/promises");
 const path = require("path");
 const crypto = require("crypto");
-// const contacts = require("./contacts.json");
 
 const contactsPath = path.resolve("./model/contacts.json");
-// console.log(contactsPath);
 
 const readContent = async () => {
   const content = await fs.readFile(contactsPath);
@@ -26,11 +24,11 @@ const addContact = async ({ name, email, phone }) => {
   const contacts = await readContent();
   const newContact = { name, email, phone, id: crypto.randomUUID() };
 
-  // eslint-disable-next-line array-callback-return
   const existingContact = contacts.find((contact) => {
     if (contact.name === name) {
       return contact;
     }
+    return null;
   });
 
   if (existingContact?.email === newContact.email) {

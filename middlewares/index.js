@@ -1,7 +1,7 @@
 const {
   addContactValidation,
   updateContactValidation,
-} = require("./validationMiddlevare");
+} = require("./validationMiddleware");
 
 module.exports = {
   addContactValidation,
