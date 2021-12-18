@@ -1,6 +1,10 @@
 const express = require("express");
 const model = require("../../model/index");
 const router = express.Router();
+const {
+  addContactValidation,
+  updateContactValidation,
+} = require("../../middlewares/index");
 
 router.get("/", async (req, res, next) => {
   const contacts = await model.listContacts();
@@ -16,7 +20,7 @@ router.get("/:id", async (req, res, next) => {
   res.status(404).json({ message: "Contact not found" });
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", addContactValidation, async (req, res, next) => {
   const newContact = await model.addContact(req.body);
   return res.status(201).json(newContact);
 });
@@ -30,7 +34,7 @@ router.delete("/:id", async (req, res, next) => {
   res.status(404).json({ message: "Contact Not found" });
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", updateContactValidation, async (req, res, next) => {
   const { id } = req.params;
   const updatedContact = await model.updateContact(id, req.body);
   if (updatedContact) {
