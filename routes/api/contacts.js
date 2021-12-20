@@ -1,5 +1,5 @@
 const express = require("express");
-const model = require("../../db/contacts.json");
+const model = require("../../model/contacts/index");
 const router = express.Router();
 const {
   addContactValidation,
