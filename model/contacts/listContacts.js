@@ -1,8 +1,8 @@
 const db = require("../db");
+const { getCollection } = require("./getCollection");
 
 const listContacts = async () => {
-  const client = await db;
-  const collection = await client.db().collection("contacts");
+  const collection = await getCollection(db, "contacts");
   const result = await collection.find().toArray();
   return result;
 };
