@@ -28,11 +28,10 @@ const updateContactValidation = async (req, res, next) => {
     await schema.validateAsync(req.body);
   } catch (error) {
     const [{ type }] = error.details;
-    console.log(error.details);
     if (type === "object.unknown") {
       return res.status(400).json({ message: error.message.replace(/"/g, "") });
     }
-    return res.status(400).json({ message: "Missing fields" });
+    return res.status(400).json({ message: error.message.replace(/"/g, "") });
   }
 
   next();
