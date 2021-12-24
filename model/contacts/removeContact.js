@@ -1,9 +1,11 @@
 const db = require("../db");
+const ObjectId = require("mongodb").ObjectId;
 const { getCollection } = require("./getCollection");
 
 const removeContact = async (contactId) => {
   const collection = await getCollection(db, "contacts");
-  const { value: result } = await collection.findOneAndDelete(contactId);
+  const id = ObjectId(contactId);
+  const { value: result } = await collection.findOneAndDelete({ _id: id });
   return result;
 };
 
