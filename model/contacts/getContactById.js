@@ -1,10 +1,4 @@
-const { readContent } = require("./readContent");
-
-const getContactById = async (contactId) => {
-  const contacts = await await readContent();
-  const [contact] = contacts.filter((contact) => contact.id === contactId);
-  return contact;
-};
+const getContactById = async (contactId) => {};
 
 module.exports = {
   getContactById,
