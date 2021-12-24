@@ -1,5 +1,5 @@
 const db = require("../db");
-const { ObjectId } = require("mongodb");
+const ObjectId = require("mongodb").ObjectId;
 const { getCollection } = require("./getCollection");
 
 const getContactById = async (contactId) => {
