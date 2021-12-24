@@ -5,6 +5,7 @@ const { getCollection } = require("./getCollection");
 const getContactById = async (contactId) => {
   const collection = await getCollection(db, "contacts");
   const id = ObjectId(contactId);
+  console.log(id);
   const result = await collection.find({ _id: id }).toArray();
   return result;
 };
