@@ -19,12 +19,6 @@ const getContact = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message, code: 400 });
   }
-  // const { id } = req.params;
-  // const contactById = await models.getContactById(id);
-  // if (contactById) {
-  //   return res.status(200).json(contactById);
-  // }
-  // res.status(404).json({ message: "Contact not found" });
 };
 
 module.exports = getContact;

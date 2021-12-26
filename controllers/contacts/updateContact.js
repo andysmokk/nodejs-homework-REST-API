@@ -23,12 +23,6 @@ const updateContact = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message, code: 400 });
   }
-  // const { id } = req.params;
-  // const updatedContact = await models.updateContact(id, req.body);
-  // if (updatedContact) {
-  //   return res.status(200).json(updatedContact);
-  // }
-  // res.status(404).json({ message: "Contact not found" });
 };
 
 module.exports = updateContact;

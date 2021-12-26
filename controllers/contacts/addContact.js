@@ -14,8 +14,6 @@ const addContact = async (req, res) => {
       code: 400,
     });
   }
-  // const newContact = await models.addContact(req.body);
-  // return res.status(201).json(newContact);
 };
 
 module.exports = addContact;

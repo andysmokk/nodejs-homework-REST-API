@@ -1,5 +1,4 @@
 const express = require("express");
-// const model = require("../../models/contact/index");
 const {
   getAllContacts,
   getContact,
