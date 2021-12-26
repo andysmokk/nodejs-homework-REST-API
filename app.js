@@ -2,6 +2,8 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
+// eslint-disable-next-line no-unused-vars
+const { colors } = require("./helpers");
 
 dotenv.config({ path: "./config/.env" });
 
