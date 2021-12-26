@@ -7,11 +7,12 @@ const {
   removeContact,
   updateContact,
 } = require("../../controllers");
-const router = express.Router();
 const {
   addContactValidation,
   updateContactValidation,
 } = require("../../middlewares/index");
+
+const router = express.Router();
 
 router.get("/", getAllContacts);
 router.get("/:id", getContact);

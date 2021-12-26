@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require("../../config/db");
 const { getCollection } = require("./getCollection");
 
 const addContact = async (body) => {
