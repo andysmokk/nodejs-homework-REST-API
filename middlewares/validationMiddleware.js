@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { Types } = require("mongoose");
 
 const addContactValidation = async (req, res, next) => {
   const schema = Joi.object({
@@ -30,7 +31,6 @@ const updateContactValidation = async (req, res, next) => {
     await schema.validateAsync(req.body);
   } catch (error) {
     const [{ type }] = error.details;
-    console.log(error.details);
     if (type === "object.unknown") {
       return res.status(400).json({ message: error.message.replace(/"/g, "") });
     }
@@ -49,13 +49,19 @@ const updateContactFavoriteValidation = async (req, res, next) => {
     await schema.validateAsync(req.body);
   } catch (error) {
     const [{ type }] = error.details;
-    console.log(error.details);
     if (type === "any.required") {
-      return res.status(400).json({ message: "Missing field favorite" });
+      return res.status(400).json({ message: error.message.replace(/"/g, "") });
     }
-    return res.status(400).json({ message: error.message.replace(/"/g, "") });
+    return res.status(400).json({ message: error.message });
   }
 
+  next();
+};
+
+const idValidation = async (req, res, next) => {
+  if (!Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: "Invalid ObjectId" });
+  }
   next();
 };
 
@@ -63,4 +69,5 @@ module.exports = {
   addContactValidation,
   updateContactValidation,
   updateContactFavoriteValidation,
+  idValidation,
 };

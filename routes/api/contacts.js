@@ -11,6 +11,7 @@ const {
   addContactValidation,
   updateContactValidation,
   updateContactFavoriteValidation,
+  idValidation,
 } = require("../../middlewares/index");
 
 const router = express.Router();
@@ -22,6 +23,6 @@ router.route("/:id").delete(removeContact);
 router.route("/:id").put(updateContactValidation, updateContact);
 router
   .route("/:id/favorite")
-  .patch(updateContactFavoriteValidation, updateContact);
+  .patch(updateContactFavoriteValidation, idValidation, updateContact);
 
 module.exports = router;
