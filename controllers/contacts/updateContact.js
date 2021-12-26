@@ -2,9 +2,8 @@ const Contact = require("../../models/Contact");
 
 const updateContact = async (req, res) => {
   try {
-    const { body } = req;
     const { id } = req.params;
-    const contact = await Contact.findByIdAndUpdate(id, body, {
+    const contact = await Contact.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
     });
