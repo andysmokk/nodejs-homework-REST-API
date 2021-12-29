@@ -5,7 +5,7 @@ const {
   addContact,
   removeContact,
   updateContact,
-} = require("../../controllers");
+} = require("../../controllers/contacts");
 const {
   addContactValidation,
   updateContactValidation,
