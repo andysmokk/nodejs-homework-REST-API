@@ -1,5 +1,5 @@
 const express = require("express");
-const { registration, login, logout } = require("../../controllers/auth");
+const { signup, login, logout } = require("../../controllers/auth");
 // const {
 //   addContactValidation,
 //   updateContactValidation,
@@ -9,7 +9,7 @@ const { registration, login, logout } = require("../../controllers/auth");
 
 const router = express.Router();
 
-router.route("/registration").post(registration);
+router.route("/signup").post(signup);
 router.route("/login").post(login);
 router.route("/logout").post(logout);
 

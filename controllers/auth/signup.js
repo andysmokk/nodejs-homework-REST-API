@@ -2,7 +2,7 @@ const AuthService = require("../../service/auth/AuthService");
 
 const authService = new AuthService();
 
-const registration = async (req, res) => {
+const signup = async (req, res) => {
   const { email } = req.body;
   const isUserExist = await authService.isUserExist(email);
   if (isUserExist) {
@@ -22,4 +22,4 @@ const registration = async (req, res) => {
 };
 
 console.log("Hola registration");
-module.exports = registration;
+module.exports = signup;

@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = Schema(
   {
@@ -34,5 +35,13 @@ const userSchema = Schema(
   //     toObject: { virtuals: true },
   //   }
 );
+
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    const salt = await bcrypt.genSalt(6);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+  next();
+});
 
 module.exports = model("user", userSchema);
