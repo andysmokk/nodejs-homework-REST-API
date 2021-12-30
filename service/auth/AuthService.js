@@ -23,6 +23,16 @@ class AuthService {
     return user;
   }
 
+  async currentUser(body) {
+    const user = await Users.getUserByEmail(body);
+    if (!user) {
+      return null;
+    }
+
+    const { email, subscription } = user;
+    return { email, subscription };
+  }
+
   getToken(user) {
     const { id } = user;
     const payload = { id };
