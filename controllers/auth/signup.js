@@ -2,14 +2,14 @@ const AuthService = require("../../service/auth/AuthService");
 
 const authService = new AuthService();
 
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
   const { email } = req.body;
   const isUserExist = await authService.isUserExist(email);
   if (isUserExist) {
     return res.status(409).json({
       status: "error",
       code: 409,
-      message: "Email is already exist",
+      message: "Email in use",
     });
   }
 
@@ -21,5 +21,4 @@ const signup = async (req, res) => {
   });
 };
 
-console.log("Hola registration");
 module.exports = signup;
