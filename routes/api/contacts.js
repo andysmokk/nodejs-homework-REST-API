@@ -6,20 +6,22 @@ const {
   removeContact,
   updateContact,
 } = require("../../controllers/contacts");
+
 const {
   addContactValidation,
   updateContactValidation,
   updateContactFavoriteValidation,
   idValidation,
-} = require("../../middlewares/index");
+  guard,
+} = require("../../middlewares");
 
 const router = express.Router();
 
-router.route("/").get(getAllContacts);
-router.route("/:id").get(getContact);
-router.route("/").post(addContactValidation, addContact);
-router.route("/:id").delete(removeContact);
-router.route("/:id").put(updateContactValidation, updateContact);
+router.route("/").get(guard, getAllContacts);
+router.route("/:id").get(guard, getContact);
+router.route("/").post(guard, addContactValidation, addContact);
+router.route("/:id").delete(guard, removeContact);
+router.route("/:id").put(guard, updateContactValidation, updateContact);
 router
   .route("/:id/favorite")
   .patch(updateContactFavoriteValidation, idValidation, updateContact);
