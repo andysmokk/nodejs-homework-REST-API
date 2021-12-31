@@ -10,8 +10,8 @@ class AuthService {
   }
 
   async createUser(body) {
-    const { id, name, email } = await Users.create(body);
-    return { id, name, email };
+    const { id, email } = await Users.create(body);
+    return { id, email };
   }
 
   async getUser(email, password) {
@@ -29,8 +29,8 @@ class AuthService {
       return null;
     }
 
-    const { email, subscription } = user;
-    return { email, subscription };
+    const { id, email, subscription } = user;
+    return { id, email, subscription };
   }
 
   getToken(user) {

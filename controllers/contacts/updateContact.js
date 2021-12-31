@@ -3,10 +3,15 @@ const Contact = require("../../models/Contact");
 const updateContact = async (req, res) => {
   try {
     const { id } = req.params;
-    const contact = await Contact.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const { id: userId } = req.user;
+    const contact = await Contact.findOneAndUpdate(
+      { _id: id, owner: userId },
+      { ...req.body },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     if (!contact) {
       return res.status(400).json({
         message: `Cannot update contact with id: ${id}`,

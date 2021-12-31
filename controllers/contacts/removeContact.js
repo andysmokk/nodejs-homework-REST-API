@@ -3,7 +3,8 @@ const Contact = require("../../models/Contact");
 const removeContact = async (req, res) => {
   try {
     const { id } = req.params;
-    const contact = await Contact.findByIdAndDelete(id);
+    const { id: userId } = req.user;
+    const contact = await Contact.findOneAndDelete({ owner: userId, _id: id });
     if (!contact) {
       return res.status(400).json({
         message: `Cannot remove contact with id: ${id}`,
