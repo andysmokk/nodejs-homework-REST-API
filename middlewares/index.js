@@ -3,7 +3,11 @@ const {
   updateContactValidation,
   updateContactFavoriteValidation,
   idValidation,
-} = require("./validationMiddleware");
+} = require("./validationContact");
+const {
+  createUserValidation,
+  loginUserValidation,
+} = require("./validationUser");
 const guard = require("./guard");
 
 module.exports = {
@@ -12,4 +16,6 @@ module.exports = {
   updateContactFavoriteValidation,
   idValidation,
   guard,
+  createUserValidation,
+  loginUserValidation,
 };

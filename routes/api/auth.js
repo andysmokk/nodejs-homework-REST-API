@@ -1,17 +1,15 @@
 const express = require("express");
 const { signup, login, logout, current } = require("../../controllers/auth");
-const { guard } = require("../../middlewares");
-// const {
-//   addContactValidation,
-//   updateContactValidation,
-//   updateContactFavoriteValidation,
-//   idValidation,
-// } = require("../../middlewares/index");
+const {
+  guard,
+  createUserValidation,
+  loginUserValidation,
+} = require("../../middlewares");
 
 const router = express.Router();
 
-router.route("/signup").post(signup);
-router.route("/login").post(login);
+router.route("/signup").post(createUserValidation, signup);
+router.route("/login").post(loginUserValidation, login);
 router.route("/current").get(guard, current);
 router.route("/logout").post(guard, logout);
 

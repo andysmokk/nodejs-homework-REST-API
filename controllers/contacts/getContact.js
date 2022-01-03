@@ -4,7 +4,10 @@ const getContact = async (req, res) => {
   try {
     const { id } = req.params;
     const { id: userId } = req.user;
-    const contact = await Contact.findOne({ id, owner: userId });
+    const contact = await Contact.findOne({ id, owner: userId }).populate({
+      path: "owner",
+      select: "email subscription",
+    });
     console.log("CONTACT_ID", id);
     console.log("USER_ID", userId);
     if (!contact) {

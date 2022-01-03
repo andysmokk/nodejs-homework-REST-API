@@ -21,6 +21,17 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+  },
+  {
+    versionKey: false,
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret._id;
+        return ret;
+      },
+    },
   }
   //   {
   //     versionKey: false,
