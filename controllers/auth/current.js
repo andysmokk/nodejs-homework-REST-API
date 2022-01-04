@@ -1,4 +1,5 @@
 const AuthService = require("../../service/auth/AuthService");
+const httpCode = require("../../lib/httpCodes");
 
 const authService = new AuthService();
 
@@ -6,16 +7,16 @@ const current = async (req, res) => {
   const { email } = req.body;
   const user = await authService.currentUser(email);
   if (!user) {
-    return res.status(401).json({
+    return res.status(httpCode.UNAUTHORIZED).json({
       status: "error",
-      code: 401,
+      code: httpCode.UNAUTHORIZED,
       message: "Not authorized",
     });
   }
 
-  res.status(200).json({
+  res.status(httpCode.OK).json({
     status: "successful",
-    code: 200,
+    code: httpCode.OK,
     data: user,
   });
 };

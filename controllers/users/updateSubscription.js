@@ -1,4 +1,5 @@
 const User = require("../../models/User");
+const httpCode = require("../../lib/httpCodes");
 
 const updateSubscription = async (req, res) => {
   try {
@@ -14,19 +15,21 @@ const updateSubscription = async (req, res) => {
       }
     );
     if (!user) {
-      return res.status(400).json({
+      return res.status(httpCode.BAD_REQUEST).json({
         message: `Cannot update contact with id: ${id}`,
-        code: 400,
+        code: httpCode.BAD_REQUEST,
         data: user,
       });
     }
-    return res.status(200).json({
-      message: "ok",
-      code: 200,
+    return res.status(httpCode.OK).json({
+      status: "successful",
+      code: httpCode.OK,
       data: { id, email, subscription },
     });
   } catch (error) {
-    res.status(400).json({ message: error.message, code: 400 });
+    res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: error.message, code: httpCode.BAD_REQUEST });
   }
 };
 

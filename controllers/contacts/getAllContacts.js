@@ -1,4 +1,5 @@
 const Contact = require("../../models/Contact");
+const httpCode = require("../../lib/httpCodes");
 
 const getAllContacts = async (req, res) => {
   try {
@@ -16,17 +17,17 @@ const getAllContacts = async (req, res) => {
         path: "owner",
         select: "email subscription",
       });
-    return res.status(200).json({
-      message: "ok",
-      code: 200,
+    return res.status(httpCode.OK).json({
+      status: "successful",
+      code: httpCode.OK,
       total,
       page,
       data: { perPage: contacts.length, contacts },
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(httpCode.BAD_REQUEST).json({
       message: error.message,
-      code: 400,
+      code: httpCode.BAD_REQUEST,
     });
   }
 };

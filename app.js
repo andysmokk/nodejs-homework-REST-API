@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const httpCode = require("./lib/httpCodes");
 // eslint-disable-next-line no-unused-vars
 const { colors } = require("./helpers");
 
@@ -24,11 +25,11 @@ app.use("/users", authRouter);
 app.use("/api/contacts", contactsRouter);
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(httpCode.NOT_FOUND).json({ message: "Not found" });
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message });
+  res.status(httpCode.INTERNAL_SERVER_ERROR).json({ message: err.message });
 });
 
 module.exports = app;

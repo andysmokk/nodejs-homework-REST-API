@@ -1,5 +1,5 @@
 const Joi = require("joi");
-// const { Types } = require("mongoose");
+const httpCode = require("../lib/httpCodes");
 
 const createUserValidation = async (req, res, next) => {
   const schema = Joi.object({
@@ -9,7 +9,9 @@ const createUserValidation = async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
   } catch (error) {
-    return res.status(400).json({ message: error.message.replace(/"/g, "") });
+    return res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: error.message.replace(/"/g, "") });
   }
   next();
 };
@@ -22,7 +24,9 @@ const loginUserValidation = async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
   } catch (error) {
-    return res.status(400).json({ message: error.message.replace(/"/g, "") });
+    return res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: error.message.replace(/"/g, "") });
   }
   next();
 };
@@ -34,7 +38,9 @@ const subscriptionUserValidation = async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
   } catch (error) {
-    return res.status(400).json({ message: error.message.replace(/"/g, "") });
+    return res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: error.message.replace(/"/g, "") });
   }
   next();
 };

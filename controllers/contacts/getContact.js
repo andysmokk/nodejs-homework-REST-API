@@ -1,4 +1,5 @@
 const Contact = require("../../models/Contact");
+const httpCode = require("../../lib/httpCodes");
 
 const getContact = async (req, res) => {
   try {
@@ -11,19 +12,21 @@ const getContact = async (req, res) => {
     // console.log("CONTACT_ID", id);
     // console.log("USER_ID", userId);
     if (!contact) {
-      return res.status(200).json({
+      return res.status(httpCode.OK).json({
         message: `Cannot find contact with id: ${id}`,
-        code: 200,
+        code: httpCode.OK,
         data: contact,
       });
     }
-    return res.status(200).json({
-      message: "ok",
+    return res.status(httpCode.OK).json({
+      status: "successful",
       code: 200,
       data: contact,
     });
   } catch (error) {
-    res.status(400).json({ message: error.message, code: 400 });
+    res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: error.message, code: httpCode.BAD_REQUEST });
   }
 };
 

@@ -1,4 +1,5 @@
 const AuthService = require("../../service/auth/AuthService");
+const httpCode = require("../../lib/httpCodes");
 
 const authService = new AuthService();
 
@@ -6,17 +7,17 @@ const signup = async (req, res, next) => {
   const { email } = req.body;
   const isUserExist = await authService.isUserExist(email);
   if (isUserExist) {
-    return res.status(409).json({
+    return res.status(httpCode.CONFLICT).json({
       status: "error",
-      code: 409,
+      code: httpCode.CONFLICT,
       message: "Email in use",
     });
   }
 
   const data = await authService.createUser(req.body);
-  res.status(200).json({
+  res.status(httpCode.OK).json({
     status: "successful",
-    code: 200,
+    code: httpCode.OK,
     data,
   });
 };
