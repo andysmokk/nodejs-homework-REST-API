@@ -7,6 +7,7 @@ const {
 const {
   createUserValidation,
   loginUserValidation,
+  subscriptionUserValidation,
 } = require("./validationUser");
 const guard = require("./guard");
 
@@ -18,4 +19,5 @@ module.exports = {
   guard,
   createUserValidation,
   loginUserValidation,
+  subscriptionUserValidation,
 };

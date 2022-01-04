@@ -27,6 +27,18 @@ const loginUserValidation = async (req, res, next) => {
   next();
 };
 
+const subscriptionUserValidation = async (req, res, next) => {
+  const schema = Joi.object({
+    subscription: Joi.string().required(),
+  });
+  try {
+    await schema.validateAsync(req.body);
+  } catch (error) {
+    return res.status(400).json({ message: error.message.replace(/"/g, "") });
+  }
+  next();
+};
+
 // const addContactValidation = async (req, res, next) => {
 //   const schema = Joi.object({
 //     name: Joi.string().min(3).max(30).required(),
@@ -94,4 +106,5 @@ const loginUserValidation = async (req, res, next) => {
 module.exports = {
   createUserValidation,
   loginUserValidation,
+  subscriptionUserValidation,
 };
