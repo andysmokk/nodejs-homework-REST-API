@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const { Types } = require("mongoose");
+const httpCode = require("../lib/httpCodes");
 
 const addContactValidation = async (req, res, next) => {
   const schema = Joi.object({
@@ -13,7 +14,9 @@ const addContactValidation = async (req, res, next) => {
     await schema.validateAsync(req.body);
   } catch (error) {
     const [{ path }] = error.details;
-    return res.status(400).json({ message: `Missing required ${path} field` });
+    return res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: `Missing required ${path} field` });
   }
 
   next();
@@ -32,9 +35,13 @@ const updateContactValidation = async (req, res, next) => {
   } catch (error) {
     const [{ type }] = error.details;
     if (type === "object.unknown") {
-      return res.status(400).json({ message: error.message.replace(/"/g, "") });
+      return res
+        .status(httpCode.BAD_REQUEST)
+        .json({ message: error.message.replace(/"/g, "") });
     }
-    return res.status(400).json({ message: error.message.replace(/"/g, "") });
+    return res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: error.message.replace(/"/g, "") });
   }
 
   next();
@@ -50,9 +57,11 @@ const updateContactFavoriteValidation = async (req, res, next) => {
   } catch (error) {
     const [{ type }] = error.details;
     if (type === "any.required") {
-      return res.status(400).json({ message: error.message.replace(/"/g, "") });
+      return res
+        .status(httpCode.BAD_REQUEST)
+        .json({ message: error.message.replace(/"/g, "") });
     }
-    return res.status(400).json({ message: error.message });
+    return res.status(httpCode.BAD_REQUEST).json({ message: error.message });
   }
 
   next();
@@ -60,7 +69,9 @@ const updateContactFavoriteValidation = async (req, res, next) => {
 
 const idValidation = async (req, res, next) => {
   if (!Types.ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({ message: "Invalid ObjectId" });
+    return res
+      .status(httpCode.BAD_REQUEST)
+      .json({ message: "Invalid ObjectId" });
   }
   next();
 };

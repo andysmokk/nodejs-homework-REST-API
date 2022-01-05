@@ -1,29 +1,30 @@
-const Contact = require("../../models/Contact");
+const User = require("../../models/User");
 const httpCode = require("../../lib/httpCodes");
 
-const updateContact = async (req, res) => {
+const updateSubscription = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId } = req.user;
-    const contact = await Contact.findOneAndUpdate(
-      { _id: id, owner: userId },
+    const { email } = req.user;
+    const { subscription } = req.body;
+    const user = await User.findOneAndUpdate(
+      { _id: id },
       { ...req.body },
       {
         new: true,
         runValidators: true,
       }
     );
-    if (!contact) {
+    if (!user) {
       return res.status(httpCode.BAD_REQUEST).json({
         message: `Cannot update contact with id: ${id}`,
         code: httpCode.BAD_REQUEST,
-        data: contact,
+        data: user,
       });
     }
     return res.status(httpCode.OK).json({
       status: "successful",
       code: httpCode.OK,
-      data: contact,
+      data: { id, email, subscription },
     });
   } catch (error) {
     res
@@ -32,4 +33,4 @@ const updateContact = async (req, res) => {
   }
 };
 
-module.exports = updateContact;
+module.exports = updateSubscription;
