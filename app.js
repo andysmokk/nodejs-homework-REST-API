@@ -9,6 +9,7 @@ const { colors } = require("./helpers");
 dotenv.config({ path: "./config/.env" });
 
 const authRouter = require("./routes/api/auth");
+const userRouter = require("./routes/api/user");
 const contactsRouter = require("./routes/api/contacts");
 // console.log(authRouter);
 // console.log(contactsRouter);
@@ -22,14 +23,21 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", authRouter);
+app.use("/user", userRouter);
 app.use("/api/contacts", contactsRouter);
 
 app.use((req, res) => {
-  res.status(httpCode.NOT_FOUND).json({ message: "Not found" });
+  res
+    .status(httpCode.NOT_FOUND)
+    .json({ status: "error", code: httpCode.NOT_FOUND, message: "Not found" });
 });
 
 app.use((err, req, res, next) => {
-  res.status(httpCode.INTERNAL_SERVER_ERROR).json({ message: err.message });
+  res.status(httpCode.INTERNAL_SERVER_ERROR).json({
+    status: "error",
+    code: httpCode.INTERNAL_SERVER_ERROR,
+    message: err.message,
+  });
 });
 
 module.exports = app;
