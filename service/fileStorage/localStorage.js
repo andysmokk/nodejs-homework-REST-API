@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs/promises");
+const updateAvatar = require("../../controllers/users/updateAvatar");
 // const Users = require("../../controllers/users");
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR;
@@ -18,9 +19,8 @@ class LocalStorage {
     await fs.mkdir(destination, { recursive: true });
     await fs.rename(this.filePath, path.join(destination, this.filename));
     const avatarUrl = path.normalize(path.join(this.userId, this.filename));
-
-    // console.log(Users.updateAvatar);
     // await Users.updateAvatar(this.userId, avatarUrl);
+    await updateAvatar(this.userId, avatarUrl);
     return avatarUrl;
   }
 }
