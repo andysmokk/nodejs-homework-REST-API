@@ -3,7 +3,8 @@ const getUserByEmail = require("./getUserByEmail");
 const create = require("./create");
 const updateToken = require("./updateToken");
 const updateSubscription = require("./updateSubscription");
-const uploadAvatar = require("./uploadAvatar");
+const uploadLocalAvatar = require("./uploadLocalAvatar");
+const uploadCloudAvatar = require("./uploadCloudAvatar");
 
 module.exports = {
   getUserById,
@@ -11,5 +12,6 @@ module.exports = {
   create,
   updateToken,
   updateSubscription,
-  uploadAvatar,
+  uploadLocalAvatar,
+  uploadCloudAvatar,
 };

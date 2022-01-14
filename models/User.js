@@ -28,6 +28,10 @@ const userSchema = Schema(
         return gravatar.url(this.email, { s: "250" }, true);
       },
     },
+    idAvatarCloud: {
+      type: String,
+      default: null,
+    },
   },
   {
     versionKey: false,

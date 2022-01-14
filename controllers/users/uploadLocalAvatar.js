@@ -6,7 +6,7 @@ const {
   LocalStorage,
 } = require("../../service/fileStorage");
 
-const uploadAvatar = async (req, res) => {
+const uploadLocalAvatar = async (req, res) => {
   const fileStorage = new FileStorage(LocalStorage, req.file, req.user);
 
   const avatarUrl = await fileStorage.updateAvatar();
@@ -18,4 +18,4 @@ const uploadAvatar = async (req, res) => {
   });
 };
 
-module.exports = uploadAvatar;
+module.exports = uploadLocalAvatar;
