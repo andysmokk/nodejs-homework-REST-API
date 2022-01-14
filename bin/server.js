@@ -8,9 +8,11 @@ connectDB();
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR;
 const AVATARS_DIR = process.env.AVATARS_DIR;
+const TMP_DIR = process.env.TMP_DIR;
 
 const server = app.listen(PORT, async () => {
   await mkdir(`${UPLOAD_DIR}/${AVATARS_DIR}`, { recursive: true });
+  await mkdir(`${UPLOAD_DIR}/${TMP_DIR}`, { recursive: true });
   console.log(`Server running. Use our API on port: ${PORT}`.yellow);
 });
 
