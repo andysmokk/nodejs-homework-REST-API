@@ -18,10 +18,13 @@ const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
+const UPLOAD_DIR = process.env.UPLOAD_DIR;
+const AVATARS_DIR = process.env.AVATARS_DIR;
+
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
-
+app.use("/avatars", express.static(`${UPLOAD_DIR}/${AVATARS_DIR}`));
 app.use("/users", authRouter);
 app.use("/user", userRouter);
 app.use("/api/contacts", contactsRouter);

@@ -4,7 +4,6 @@ class FileStorage {
   constructor(Storage, file, user) {
     this.storage = new Storage(file, user);
     this.pathFile = file.path;
-    this.user = user;
   }
 
   async updateAvatar() {

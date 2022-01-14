@@ -4,6 +4,7 @@ const create = require("./create");
 const updateToken = require("./updateToken");
 const updateSubscription = require("./updateSubscription");
 const uploadAvatar = require("./uploadAvatar");
+const updateAvatar = require("./updateAvatar");
 
 module.exports = {
   getUserById,
@@ -12,4 +13,5 @@ module.exports = {
   updateToken,
   updateSubscription,
   uploadAvatar,
+  updateAvatar,
 };
