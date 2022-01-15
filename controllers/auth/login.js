@@ -1,7 +1,7 @@
-const AuthService = require("../../service/auth/AuthService");
+const authService = require("../../service/auth/AuthService");
 const httpCode = require("../../lib/httpCodes");
 
-const authService = new AuthService();
+// const authService = new AuthService();
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
