@@ -9,6 +9,7 @@ describe("Unit test signup", () => {
   beforeEach(() => {
     req = { body: { email: "test@test.com", password: "123456789" } };
     res = { status: jest.fn().mockReturnThis(), json: jest.fn((data) => data) };
+    next = jest.fn();
     authService.createUser = jest.fn(async (data) => data);
   });
 
@@ -26,5 +27,13 @@ describe("Unit test signup", () => {
     expect(res.status).toHaveBeenCalledWith(httpCode.CONFLICT);
   });
 
-  test.todo("SignUp with error DB");
+  test("SignUp with error DB", async () => {
+    const testError = new Error("DB error");
+    authService.isUserExist = jest.fn(async () => {
+      throw testError;
+    });
+    await signup(req, res, next);
+    expect(authService.isUserExist).toHaveBeenCalledWith(req.body.email);
+    expect(next).toHaveBeenCalledWith(testError);
+  });
 });

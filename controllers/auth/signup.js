@@ -18,7 +18,7 @@ const signup = async (req, res, next) => {
     const data = await authService.createUser(req.body);
     res.status(httpCode.CREATED).json({
       status: "successful",
-      code: httpCode.OK,
+      code: httpCode.CREATED,
       data,
     });
   } catch (error) {
