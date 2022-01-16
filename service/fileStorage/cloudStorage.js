@@ -20,10 +20,6 @@ class CloudStorage {
   constructor(file, user) {
     this.userId = user.id;
     this.filePath = file.path;
-    console.log(
-      "🚀 ~ file: cloudStorage.js ~ line 23 ~ CloudStorage ~ constructor ~ this.filePath",
-      this.filePath
-    );
     this.idAvatarCloud = user.idAvatarCloud;
     this.folderAvatars = COULD_FOLDER_AVATARS;
     this.uploadCloud = promisify(cloudinary.uploader.upload);

@@ -1,9 +1,5 @@
 const httpCode = require("../../lib/httpCodes");
-const {
-  FileStorage,
-  CloudStorage,
-  //   LocalStorage,
-} = require("../../service/fileStorage");
+const { FileStorage, CloudStorage } = require("../../service/fileStorage");
 
 const uploadCloudAvatar = async (req, res) => {
   const fileStorage = new FileStorage(CloudStorage, req.file, req.user);
