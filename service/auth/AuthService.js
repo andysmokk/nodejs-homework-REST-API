@@ -10,8 +10,8 @@ class AuthService {
   }
 
   async createUser(body) {
-    const { id, email } = await Users.create(body);
-    return { id, email };
+    const { id, email, avatarUrl } = await Users.create(body);
+    return { id, email, avatarUrl };
   }
 
   async getUser(email, password) {
@@ -29,8 +29,8 @@ class AuthService {
       return null;
     }
 
-    const { id, email, subscription } = user;
-    return { id, email, subscription };
+    const { id, email, subscription, avatarUrl } = user;
+    return { id, email, subscription, avatarUrl };
   }
 
   getToken(user) {
@@ -45,4 +45,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService;
+module.exports = new AuthService();

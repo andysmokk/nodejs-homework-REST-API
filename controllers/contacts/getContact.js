@@ -9,8 +9,6 @@ const getContact = async (req, res) => {
       path: "owner",
       select: "email subscription",
     });
-    // console.log("CONTACT_ID", id);
-    // console.log("USER_ID", userId);
     if (!contact) {
       return res.status(httpCode.OK).json({
         message: `Cannot find contact with id: ${id}`,

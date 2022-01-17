@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose");
 const bcrypt = require("bcrypt");
+const gravatar = require("gravatar");
 
 const userSchema = Schema(
   {
@@ -21,6 +22,16 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+    avatarUrl: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: "250" }, true);
+      },
+    },
+    idAvatarCloud: {
+      type: String,
+      default: null,
+    },
   },
   {
     versionKey: false,
@@ -33,18 +44,6 @@ const userSchema = Schema(
       },
     },
   }
-  //   {
-  //     versionKey: false,
-  //     timestamps: true,
-  //     toJSON: {
-  //       virtuals: true,
-  //       transform: function (doc, ret) {
-  //         delete ret._id;
-  //         return ret;
-  //       },
-  //     },
-  //     toObject: { virtuals: true },
-  //   }
 );
 
 userSchema.pre("save", async function (next) {

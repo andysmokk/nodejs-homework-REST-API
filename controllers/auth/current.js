@@ -1,7 +1,7 @@
-const AuthService = require("../../service/auth/AuthService");
+const authService = require("../../service/auth/AuthService");
 const httpCode = require("../../lib/httpCodes");
 
-const authService = new AuthService();
+// const authService = new AuthService();
 
 const current = async (req, res) => {
   const { email } = req.body;
