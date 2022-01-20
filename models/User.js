@@ -1,6 +1,7 @@
 const { model, Schema } = require("mongoose");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
+const { randomUUID } = require("crypto");
 
 const userSchema = Schema(
   {
@@ -31,6 +32,15 @@ const userSchema = Schema(
     idAvatarCloud: {
       type: String,
       default: null,
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+      default: randomUUID(),
     },
   },
   {

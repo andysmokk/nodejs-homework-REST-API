@@ -2,6 +2,7 @@ const express = require("express");
 const {
   uploadLocalAvatar,
   uploadCloudAvatar,
+  verifyUser,
 } = require("../../controllers/users");
 const { guard, upload } = require("../../middlewares");
 
@@ -13,5 +14,6 @@ router
 router
   .route("/cloud/avatars")
   .patch(guard, upload.single("avatar"), uploadCloudAvatar);
+router.route("/verify/:verificationToken").get(verifyUser);
 
 module.exports = router;

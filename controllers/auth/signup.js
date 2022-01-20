@@ -1,5 +1,6 @@
 const authService = require("../../service/auth/AuthService");
 const httpCode = require("../../lib/httpCodes");
+const { EmailService, Sender } = require("../../service/email");
 
 // const authService = new AuthService();
 
@@ -15,11 +16,28 @@ const signup = async (req, res, next) => {
       });
     }
 
-    const data = await authService.createUser(req.body);
+    const userData = await authService.createUser(req.body);
+    console.log("🚀 ~ file: signup.js ~ line 20 ~ signup ~ userData", userData);
+    const emailService = new EmailService(process.env.NODE_ENV, new Sender());
+    console.log(
+      "🚀 ~ file: signup.js ~ line 22 ~ signup ~ new Sender()",
+      new Sender()
+    );
+    // const { name, verificationToken } = userData;
+
+    const isSend = await emailService.sendVerifyEmail(
+      email,
+      userData.email,
+      userData.verificationToken
+    );
+    console.log("🚀 ~ file: signup.js ~ line 29 ~ signup ~ isSend", isSend);
+
+    delete userData.verificationToken;
+
     res.status(httpCode.CREATED).json({
       status: "successful",
       code: httpCode.CREATED,
-      data,
+      data: { ...userData, isSendVerifyEmail: isSend },
     });
   } catch (error) {
     next(error);
