@@ -1,26 +1,26 @@
-const {
-  getUserByVerifyToken,
-  updateVerify,
-} = require("../../controllers/users");
+const getUserByVerifyToken = require("./getUserByVerifyToken");
+const updateVerify = require("./updateVerify");
+
 const httpCode = require("../../lib/httpCodes");
 
 const verifyUser = async (req, res, next) => {
-  const verifyToken = req.params.token;
-  const userFromToken = getUserByVerifyToken(verifyToken);
+  const verifyToken = req.params.verificationToken;
+
+  const userFromToken = await getUserByVerifyToken(verifyToken);
 
   if (userFromToken) {
     await updateVerify(userFromToken.id, true);
-    res.status(httpCode.OK).json({
+    return res.status(httpCode.OK).json({
       status: "successful",
       code: httpCode.OK,
       data: { message: "Success" },
     });
   }
 
-  res.status(httpCode.BAD_REQUEST).json({
-    status: "successful",
-    code: httpCode.BAD_REQUEST,
-    data: { message: "Invalid token" },
+  res.status(httpCode.NOT_FOUND).json({
+    status: "error",
+    code: httpCode.NOT_FOUND,
+    data: { message: "Not found" },
   });
 };
 

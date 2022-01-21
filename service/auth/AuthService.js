@@ -19,7 +19,12 @@ class AuthService {
   async getUser(email, password) {
     const user = await Users.getUserByEmail(email);
     const isValidPassword = await user?.isValidPassword(password);
-    if (!isValidPassword || user?.verify) {
+
+    console.log(
+      "🚀 ~ file: AuthService.js ~ line 24 ~ AuthService ~ getUser ~ user?.verify",
+      user?.verify
+    );
+    if (!isValidPassword || !user?.verify) {
       return null;
     }
     return user;
@@ -31,8 +36,8 @@ class AuthService {
       return null;
     }
 
-    const { id, email, subscription, avatarUrl } = user;
-    return { id, email, subscription, avatarUrl };
+    const { id, email, verify, subscription, avatarUrl } = user;
+    return { id, email, verify, subscription, avatarUrl };
   }
 
   getToken(user) {

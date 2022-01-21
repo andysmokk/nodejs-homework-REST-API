@@ -19,10 +19,6 @@ class EmailService {
   }
 
   createEmailTemplate(username, verifyToken) {
-    console.log(
-      "🚀 ~ file: emailService.js ~ line 22 ~ EmailService ~ createEmailTemplate ~ username",
-      username
-    );
     const mailGenerator = new Mailgen({
       theme: "default",
       product: {
@@ -40,7 +36,7 @@ class EmailService {
           button: {
             color: "#22BC66", // Optional action button color
             text: "Confirm your account",
-            link: `${this.link}/users/verify/${verifyToken}`,
+            link: `${this.link}/user/verify/${verifyToken}`,
           },
         },
         outro:

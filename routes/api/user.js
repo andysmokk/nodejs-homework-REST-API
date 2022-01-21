@@ -3,6 +3,7 @@ const {
   uploadLocalAvatar,
   uploadCloudAvatar,
   verifyUser,
+  repeatEmailForVerifyUser,
 } = require("../../controllers/users");
 const { guard, upload } = require("../../middlewares");
 
@@ -15,5 +16,6 @@ router
   .route("/cloud/avatars")
   .patch(guard, upload.single("avatar"), uploadCloudAvatar);
 router.route("/verify/:verificationToken").get(verifyUser);
+router.route("/verify").post(repeatEmailForVerifyUser);
 
 module.exports = router;

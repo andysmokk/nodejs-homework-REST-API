@@ -6,6 +6,7 @@ const httpCode = require("../../lib/httpCodes");
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await authService.getUser(email, password);
+  console.log("🚀 ~ file: login.js ~ line 9 ~ login ~ user", user);
   if (!user) {
     return res.status(httpCode.UNAUTHORIZED).json({
       status: "error",
