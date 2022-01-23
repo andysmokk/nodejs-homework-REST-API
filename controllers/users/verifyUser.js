@@ -13,14 +13,14 @@ const verifyUser = async (req, res, next) => {
     return res.status(httpCode.OK).json({
       status: "successful",
       code: httpCode.OK,
-      data: { message: "Success" },
+      data: { message: "Verification successful" },
     });
   }
 
   res.status(httpCode.NOT_FOUND).json({
     status: "error",
     code: httpCode.NOT_FOUND,
-    data: { message: "Not found" },
+    data: { message: "User not found" },
   });
 };
 
