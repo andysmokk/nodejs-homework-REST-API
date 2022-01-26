@@ -12,6 +12,7 @@ const {
 const guard = require("./guard");
 const upload = require("./upload");
 const validationRepeatEmail = require("./validationRepeatEmail");
+const errorHandler = require("./errorHandler");
 
 module.exports = {
   addContactValidation,
@@ -24,4 +25,5 @@ module.exports = {
   subscriptionUserValidation,
   upload,
   validationRepeatEmail,
+  errorHandler,
 };

@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Users = require("../controllers/users");
 const httpCode = require("../lib/httpCodes");
+const CustomError = require("../lib/customError");
 
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -17,20 +18,22 @@ const guard = async (req, res, next) => {
   const token = req.get("authorization")?.split(" ")[1];
   const isVerifyToken = verifyToken(token);
   if (!isVerifyToken) {
-    return res.status(httpCode.UNAUTHORIZED).json({
-      status: "error",
-      code: httpCode.UNAUTHORIZED,
-      message: "Not authorized",
-    });
+    throw new CustomError(httpCode.UNAUTHORIZED, "Not authorized");
+    // return res.status(httpCode.UNAUTHORIZED).json({
+    //   status: "error",
+    //   code: httpCode.UNAUTHORIZED,
+    //   message: "Not authorized",
+    // });
   }
   const payload = jwt.decode(token);
   const user = await Users.getUserById(payload.id);
   if (!user || user.token !== token) {
-    return res.status(httpCode.UNAUTHORIZED).json({
-      status: "error",
-      code: httpCode.UNAUTHORIZED,
-      message: "Not authorized",
-    });
+    throw new CustomError(httpCode.UNAUTHORIZED, "Not authorized");
+    // return res.status(httpCode.UNAUTHORIZED).json({
+    //   status: "error",
+    //   code: httpCode.UNAUTHORIZED,
+    //   message: "Not authorized",
+    // });
   }
   req.user = user;
   next();

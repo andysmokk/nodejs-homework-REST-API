@@ -6,14 +6,17 @@ const {
   createUserValidation,
   loginUserValidation,
   subscriptionUserValidation,
+  errorHandler,
 } = require("../../middlewares");
 
 const router = express.Router();
 
-router.route("/:id").patch(guard, subscriptionUserValidation, updateSubscription);
-router.route("/signup").post(createUserValidation, signup);
-router.route("/login").post(loginUserValidation, login);
-router.route("/current").get(guard, current);
-router.route("/logout").post(guard, logout);
+router
+  .route("/:id")
+  .patch(errorHandler(guard), subscriptionUserValidation, updateSubscription);
+router.route("/signup").post(createUserValidation, errorHandler(signup));
+router.route("/login").post(loginUserValidation, errorHandler(login));
+router.route("/current").get(errorHandler(guard), errorHandler(current));
+router.route("/logout").post(errorHandler(guard), errorHandler(logout));
 
 module.exports = router;

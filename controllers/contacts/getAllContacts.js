@@ -1,5 +1,6 @@
 const Contact = require("../../models/Contact");
 const httpCode = require("../../lib/httpCodes");
+const CustomError = require("../../lib/customError");
 
 const getAllContacts = async (req, res) => {
   try {
@@ -10,6 +11,7 @@ const getAllContacts = async (req, res) => {
       owner: userId,
       favorite,
     }).countDocuments();
+
     const contacts = await Contact.find({ owner: userId, favorite })
       .skip(skip)
       .limit(Number(limit))
@@ -17,6 +19,7 @@ const getAllContacts = async (req, res) => {
         path: "owner",
         select: "email subscription",
       });
+
     return res.status(httpCode.OK).json({
       status: "successful",
       code: httpCode.OK,
@@ -25,10 +28,12 @@ const getAllContacts = async (req, res) => {
       data: { perPage: contacts.length, contacts },
     });
   } catch (error) {
-    res.status(httpCode.BAD_REQUEST).json({
-      message: error.message,
-      code: httpCode.BAD_REQUEST,
-    });
+    throw new CustomError(httpCode.BAD_REQUEST, error.message);
+    // res.status(httpCode.BAD_REQUEST).json({
+    //   status: "error",
+    //   code: httpCode.BAD_REQUEST,
+    //   message: error.message,
+    // });
   }
 };
 

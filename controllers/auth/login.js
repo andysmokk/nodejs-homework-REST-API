@@ -1,5 +1,6 @@
 const authService = require("../../service/auth/AuthService");
 const httpCode = require("../../lib/httpCodes");
+const CustomError = require("../../lib/customError");
 
 // const authService = new AuthService();
 
@@ -8,11 +9,12 @@ const login = async (req, res, next) => {
   const user = await authService.getUser(email, password);
 
   if (!user) {
-    return res.status(httpCode.UNAUTHORIZED).json({
-      status: "error",
-      code: httpCode.UNAUTHORIZED,
-      message: "Email or password is wrong",
-    });
+    throw new CustomError(httpCode.UNAUTHORIZED, "Email or password is wrong");
+    // return res.status(httpCode.UNAUTHORIZED).json({
+    //   status: "error",
+    //   code: httpCode.UNAUTHORIZED,
+    //   message: "Email or password is wrong",
+    // });
   }
 
   const token = authService.getToken(user);
