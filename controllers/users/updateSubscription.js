@@ -14,6 +14,7 @@ const updateSubscription = async (req, res) => {
         runValidators: true,
       }
     );
+
     if (!user) {
       return res.status(httpCode.BAD_REQUEST).json({
         message: `Cannot update contact with id: ${id}`,
@@ -21,6 +22,7 @@ const updateSubscription = async (req, res) => {
         data: user,
       });
     }
+
     return res.status(httpCode.OK).json({
       status: "successful",
       code: httpCode.OK,

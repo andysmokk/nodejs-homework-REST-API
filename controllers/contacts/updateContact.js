@@ -1,5 +1,6 @@
 const Contact = require("../../models/Contact");
 const httpCode = require("../../lib/httpCodes");
+const CustomError = require("../../lib/customError");
 
 const updateContact = async (req, res) => {
   try {
@@ -14,11 +15,15 @@ const updateContact = async (req, res) => {
       }
     );
     if (!contact) {
-      return res.status(httpCode.BAD_REQUEST).json({
-        message: `Cannot update contact with id: ${id}`,
-        code: httpCode.BAD_REQUEST,
-        data: contact,
-      });
+      throw new CustomError(
+        httpCode.BAD_REQUEST,
+        `Cannot update contact with id: ${id}`
+      );
+      // return res.status(httpCode.BAD_REQUEST).json({
+      //   message: `Cannot update contact with id: ${id}`,
+      //   code: httpCode.BAD_REQUEST,
+      //   data: contact,
+      // });
     }
     return res.status(httpCode.OK).json({
       status: "successful",
@@ -26,9 +31,10 @@ const updateContact = async (req, res) => {
       data: contact,
     });
   } catch (error) {
-    res
-      .status(httpCode.BAD_REQUEST)
-      .json({ message: error.message, code: httpCode.BAD_REQUEST });
+    throw new CustomError(httpCode.BAD_REQUEST, error.message);
+    //   res
+    //     .status(httpCode.BAD_REQUEST)
+    //     .json({ message: error.message, code: httpCode.BAD_REQUEST });
   }
 };
 

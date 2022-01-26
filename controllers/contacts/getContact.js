@@ -1,14 +1,19 @@
 const Contact = require("../../models/Contact");
 const httpCode = require("../../lib/httpCodes");
+const CustomError = require("../../lib/customError");
 
 const getContact = async (req, res) => {
   try {
     const { id } = req.params;
     const { id: userId } = req.user;
-    const contact = await Contact.findOne({ id, owner: userId }).populate({
-      path: "owner",
-      select: "email subscription",
-    });
+
+    const contact = await Contact.findById({ _id: id, owner: userId }).populate(
+      {
+        path: "owner",
+        select: "email subscription",
+      }
+    );
+
     if (!contact) {
       return res.status(httpCode.OK).json({
         message: `Cannot find contact with id: ${id}`,
@@ -22,9 +27,10 @@ const getContact = async (req, res) => {
       data: contact,
     });
   } catch (error) {
-    res
-      .status(httpCode.BAD_REQUEST)
-      .json({ message: error.message, code: httpCode.BAD_REQUEST });
+    throw new CustomError(httpCode.BAD_REQUEST, error.message);
+    //   res
+    //     .status(httpCode.BAD_REQUEST)
+    //     .json({ message: error.message, code: httpCode.BAD_REQUEST });
   }
 };
 

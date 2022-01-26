@@ -55,6 +55,7 @@ class EmailService {
       subject: "Verify email",
       html: emailBody,
     };
+
     try {
       const result = await this.sender.send(msg);
       console.log(result);
