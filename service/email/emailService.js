@@ -11,7 +11,7 @@ class EmailService {
         this.link = "http://localhost:3001";
         break;
       case "production":
-        this.link = "http://www.heroku.com";
+        this.link = "https://nodejs-sender.herokuapp.com";
         break;
       default:
         this.link = "http://localhost:3000";
